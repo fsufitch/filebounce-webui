@@ -9,11 +9,17 @@
 
         "noImplicitAny": true,
         "sourceMap": true,
+        "allowJs": true,
 
         "baseUrl": ".",
         "outDir": "../ts_built/",
 
-        "types": ["core-js", "node"]
+        "types": [
+          "core-js",
+          "long",
+          "node",
+          "ws"
+        ]
     },
     "awesomeTypescriptLoaderOptions": {
       "forkChecker": true,

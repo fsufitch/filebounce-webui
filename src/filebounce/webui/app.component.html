@@ -3,3 +3,7 @@
 <div>
   Your device is: {{ (wurfl$ | async)?.complete_device_name }}
 </div>
+
+<div *ngIf="authSuccess$ | async">
+  Yay, authenticated!
+</div>
