@@ -10,10 +10,10 @@
         "noImplicitAny": true,
         "sourceMap": true,
 
-        "baseUrl": "./src",
+        "baseUrl": ".",
         "outDir": "../ts_built/",
 
-        "types": ["node"]
+        "types": ["core-js", "node"]
     },
     "awesomeTypescriptLoaderOptions": {
       "forkChecker": true,

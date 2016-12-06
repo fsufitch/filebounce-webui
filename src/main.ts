@@ -1,3 +1,4 @@
-import './filebounce-webui/app.module';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from 'filebounce-webui/app.module';
 
-console.log('wat');
+platformBrowserDynamic().bootstrapModule(AppModule);

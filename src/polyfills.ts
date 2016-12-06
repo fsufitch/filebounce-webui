@@ -1,5 +1,5 @@
 import 'ie-shim';
 
-import 'core-js';
-import 'core-js/es7/reflect';
+import 'core-js/es6';
+import 'reflect-metadata';
 import 'zone.js/dist/zone';
