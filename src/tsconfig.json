@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "moduleResolution": "node",
+
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+
+        "noImplicitAny": true,
+        "sourceMap": true,
+
+        "baseUrl": "./src",
+        "outDir": "../ts_built/",
+
+        "types": ["node"]
+    },
+    "awesomeTypescriptLoaderOptions": {
+      "forkChecker": true,
+      "useWebpackText": true
+    },
+    "atom": { "rewriteTsconfig": false }
+}
