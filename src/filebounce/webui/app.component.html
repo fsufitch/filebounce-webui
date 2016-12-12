@@ -1,15 +1,12 @@
 <div class="container">
 
-  <h1> this is angular </h1>
+  <h1> File Bouncer Web UI </h1>
 
   <div>
     Your device is: {{ (wurfl$ | async)?.complete_device_name }}
   </div>
 
-  <div>
-    <a href="#" class="btn btn-primary"> foo </a>
-  </div>
-  <div *ngIf="authSuccess$ | async">
-    Yay, authenticated!
-  </div>
+
 </div>
+
+<status-footer></status-footer>

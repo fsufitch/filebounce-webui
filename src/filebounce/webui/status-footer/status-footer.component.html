@@ -1,0 +1,24 @@
+<footer>
+  <div class="container">
+    <p class="text-muted">
+      Transfer Node:
+      <code>{{transferNodeUrl}}</code>
+
+      <span *ngIf="connecting$ | async" class="label label-info">
+        Connecting...
+      </span>
+
+      <span *ngIf="connected$ | async" class="label label-success">
+        Primary
+      </span>
+
+      <span *ngIf="error$ | async" class="label label-danger">
+        Error
+      </span>
+
+      <span *ngIf="closed$ | async" class="label label-danger">
+        Closed
+      </span>
+    </p>
+  </div>
+</footer>

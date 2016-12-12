@@ -5,6 +5,7 @@ import { HttpModule }   from '@angular/http';
 import { WurflModule } from 'custom_vendor/wurfl';
 import { NetworkModule } from 'filebounce/net';
 import { AppComponent }  from 'filebounce/webui/app.component';
+import { StatusFooterComponent } from 'filebounce/webui/status-footer';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AppComponent }  from 'filebounce/webui/app.component';
     NetworkModule,
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    StatusFooterComponent,
   ],
   bootstrap: [ AppComponent ]
 })

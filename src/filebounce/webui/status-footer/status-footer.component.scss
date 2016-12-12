@@ -1,0 +1,18 @@
+$footer-bg: #f5f5f5;
+
+footer {
+  background-color: $footer-bg;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  position: absolute;
+}
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
