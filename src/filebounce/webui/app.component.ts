@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { WurflService } from 'custom_vendor/wurfl';
@@ -7,6 +7,10 @@ import { MessageMuxService, MessageEmitService } from 'filebounce/net';
 @Component({
   selector: 'ng2app',
   template: require('./app.component.html'),
+  styles: [
+    require('./app.component.scss')
+  ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
   wurfl$ = this._wurflService.getWurfl();

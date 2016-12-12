@@ -1,9 +1,15 @@
-<h1> this is angular </h1>
+<div class="container">
 
-<div>
-  Your device is: {{ (wurfl$ | async)?.complete_device_name }}
-</div>
+  <h1> this is angular </h1>
 
-<div *ngIf="authSuccess$ | async">
-  Yay, authenticated!
+  <div>
+    Your device is: {{ (wurfl$ | async)?.complete_device_name }}
+  </div>
+
+  <div>
+    <a href="#" class="btn btn-primary"> foo </a>
+  </div>
+  <div *ngIf="authSuccess$ | async">
+    Yay, authenticated!
+  </div>
 </div>

@@ -8,3 +8,8 @@ import '@angular/platform-browser-dynamic';
 
 import 'rxjs/Rx';
 import 'protobufjs';
+
+import 'jquery';
+import 'bootstrap-sass';
+
+import 'rxsocket';

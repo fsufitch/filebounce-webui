@@ -15,6 +15,11 @@ const METADATA = {
 };
 
 module.exports = {
+  node: {
+    fs: 'empty',
+    tls: 'empty',
+  },
+  
   entry: {
     'polyfills': './src/polyfills.ts',
     'vendor': './src/vendor.ts',
@@ -30,6 +35,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.json', '.yaml', '.scss', '.css', '.html'],
     modules: [helpers.root('src'), helpers.root('node_modules')],
+    alias: {
+      'bootstrap-sass-assets': helpers.root('node_modules/bootstrap-sass/assets'),
+    }
   },
 
   module: {
@@ -38,9 +46,11 @@ module.exports = {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader?tsconfig=./src/tsconfig.json'
       },
-      { test: /\.s?css$/, loader: 'css-to-string!css!sass' },
-      { test: /\.html?$/, loader: 'html' },
-      { test: /\.(ttf|eot|woff2?|png|jpe?g|svg)$/, loader: "url?limit=10000" }
+      { test: /\.json$/, loader: 'json-loader'},
+      { test: /\.s?css$/, loader: 'css-to-string-loader!css-loader!sass-loader' },
+      { test: /\.html?$/, loader: 'html-loader' },
+      { test: /\.(ttf|eot|woff2?|png|jpe?g|svg)$/, loader: 'url-loader?limit=10000' },
+      { test: /\.(txt|proto)$/, loader: 'raw-loader'}
     ],
   },
 
