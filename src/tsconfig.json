@@ -14,13 +14,8 @@
         "baseUrl": ".",
         "outDir": "../ts_built/",
 
-        "types": [
-          "core-js",
-          "long",
-          "node",
-          "ws"
-        ],
         "typeRoots": [
+          "./custom_types",
           "../node_modules/@types"
         ]
     },

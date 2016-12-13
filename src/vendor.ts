@@ -9,7 +9,10 @@ import '@angular/platform-browser-dynamic';
 import 'rxjs/Rx';
 import 'protobufjs';
 
-import 'jquery';
-import 'bootstrap-sass';
-
 import 'rxsocket';
+
+import * as $ from 'jquery';
+let _window = <any>window;
+_window.$ = _window.jQuery = $;
+
+import 'bootstrap-sass';

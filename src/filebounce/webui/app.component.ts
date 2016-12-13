@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { WurflService } from 'custom_vendor/wurfl';
 import { MessageMuxService, MessageEmitService } from 'filebounce/net';
 
 @Component({
@@ -13,8 +12,6 @@ import { MessageMuxService, MessageEmitService } from 'filebounce/net';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
-  wurfl$ = this._wurflService.getWurfl();
-
   authSuccess$ = Observable.of(false).concat(
     this._messageMuxService.getAuthSuccessMessages()
       .map(() => true)
@@ -22,7 +19,6 @@ export class AppComponent implements OnInit {
   );
 
   constructor(
-    private _wurflService: WurflService,
     private _messageEmitService: MessageEmitService,
     private _messageMuxService: MessageMuxService
   ) {}

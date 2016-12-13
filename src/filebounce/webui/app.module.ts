@@ -6,6 +6,8 @@ import { WurflModule } from 'custom_vendor/wurfl';
 import { NetworkModule } from 'filebounce/net';
 import { AppComponent }  from 'filebounce/webui/app.component';
 import { StatusFooterComponent } from 'filebounce/webui/status-footer';
+import { UploadComponent } from 'filebounce/webui/upload';
+
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import { StatusFooterComponent } from 'filebounce/webui/status-footer';
   declarations: [
     AppComponent,
     StatusFooterComponent,
+    UploadComponent,
   ],
   bootstrap: [ AppComponent ]
 })
