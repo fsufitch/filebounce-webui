@@ -1,8 +1,8 @@
+const path = require('path');
 const webpack = require('webpack');
 const helpers = require('./helpers');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
 /*
  * Webpack Constants
@@ -19,7 +19,7 @@ module.exports = {
     fs: 'empty',
     tls: 'empty',
   },
-  
+
   entry: {
     'polyfills': './src/polyfills.ts',
     'vendor': './src/vendor.ts',
@@ -44,7 +44,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader?tsconfig=./src/tsconfig.json'
+        loader: 'awesome-typescript-loader?configFileName=' + path.join('.', 'src', 'tsconfig.json'),
       },
       { test: /\.json$/, loader: 'json-loader'},
       { test: /\.s?css$/, loader: 'css-to-string-loader!css-loader!sass-loader' },
@@ -59,7 +59,7 @@ module.exports = {
       name: ['polyfills', 'vendor'].reverse()
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new ForkCheckerPlugin(),
+    new CheckerPlugin(),
 
   ],
 };

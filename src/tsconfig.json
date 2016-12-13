@@ -19,6 +19,9 @@
           "long",
           "node",
           "ws"
+        ],
+        "typeRoots": [
+          "../node_modules/@types"
         ]
     },
     "awesomeTypescriptLoaderOptions": {
