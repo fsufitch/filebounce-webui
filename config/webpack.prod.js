@@ -3,7 +3,7 @@ const webpackCommon = require('./webpack.common');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 
 module.exports = webpackMerge(webpackCommon, {
-  devtool: 'cheap-module-source-map',
+  devtool: 'none',
 
   devServer: {
     port: 9999,
