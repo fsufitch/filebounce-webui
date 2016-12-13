@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "moduleResolution": "node",
 
         "emitDecoratorMetadata": true,
@@ -17,9 +17,20 @@
         "typeRoots": [
           "./custom_types",
           "../node_modules/@types"
+        ],
+        "types": [
+          "file-size",
+          "long",
+          "node",
+          "ws"
         ]
     },
     "awesomeTypescriptLoaderOptions": {
+      "useBabel": true,
+      "babelOptions": {
+        "sourceMaps": true,
+        "presets": ["latest"]
+      },
       "forkChecker": true,
       "useWebpackText": true
     },

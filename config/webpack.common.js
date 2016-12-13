@@ -59,6 +59,7 @@ module.exports = {
       name: ['polyfills', 'vendor'].reverse()
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new CheckerPlugin(),
 
   ],
