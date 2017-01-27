@@ -20,9 +20,9 @@
         ],
         "types": [
           "file-size",
-          "long",
-          "node",
-          "ws"
+          "@types/long",
+          "@types/node",
+          "@types/ws"
         ]
     },
     "awesomeTypescriptLoaderOptions": {

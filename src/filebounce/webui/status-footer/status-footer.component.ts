@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { TransferNodeConnectionService, ConnectionStatus } from 'filebounce/net';
-
 @Component({
   selector: 'status-footer',
   template: require('./status-footer.component.html'),

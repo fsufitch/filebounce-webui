@@ -1,8 +1,12 @@
 /// <reference types="file-size" />
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import {
+  Component, ViewChild, OnInit, Output, EventEmitter, ElementRef
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { WurflService } from 'custom_vendor/wurfl';
+import { FileService } from 'filebounce/services/file.service';
+
 import filesize = require('file-size');
 
 @Component({
@@ -11,18 +15,29 @@ import filesize = require('file-size');
 })
 export class UploadComponent implements OnInit {
   @ViewChild('fileInput') fileInputRef: ElementRef;
+  @Output() fileConfirmed = new EventEmitter<File>();
 
   isMobile$ = this._wurflService.getWurfl().map(wurfl => wurfl.is_mobile);
 
-  selectedFile$ = new BehaviorSubject<File>(null);
-  selectedSizeHuman$ = this.selectedFile$
+  selectedFile$ = this._fileService.getSelectedFile();
+
+  selectedSize$ = this.selectedFile$
     .filter(f => !!f)
-    .map(f => filesize(f.size).human('si'));
+    .map(f => f.size);
+  selectedSizeHuman$ = this.selectedSize$
+    .map(size => filesize(size).human('si'));
   selectedMimeType$ = this.selectedFile$
     .filter(f => !!f)
     .map(f => f.type || 'application/octet-stream');
 
-  constructor(private _wurflService: WurflService) {}
+  confirmedFile$ = this._fileService.getFileConfirmed();
+  showConfirm$ = this.selectedFile$.combineLatest(this.confirmedFile$)
+    .map(([file, confirmed]) => !!file && !confirmed);
+
+  constructor(
+    private _wurflService: WurflService,
+    private _fileService: FileService,
+  ) {}
 
   get fileInput() {
     return <HTMLInputElement>this.fileInputRef.nativeElement;
@@ -33,10 +48,15 @@ export class UploadComponent implements OnInit {
   }
 
   fileSelected() {
-    this.selectedFile$.next(this.fileInput.files[0]);
+    this._fileService.setFile(this.fileInput.files[0]);
   }
 
   humanFileSize(bytes: number) {
     return filesize(bytes).human('si');
   }
+
+  confirmFile() {
+    this._fileService.confirmFile();
+  }
+
 }

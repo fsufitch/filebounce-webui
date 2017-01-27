@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 
 import { MessageMuxService } from './message-mux.service';
 import { MessageEmitService } from './message-emit.service';
