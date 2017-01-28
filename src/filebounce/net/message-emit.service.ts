@@ -12,15 +12,17 @@ export class MessageEmitService {
     let msg = new ClientMessaging.ClientToTransferNodeMessage();
     msg.setType(ClientMessaging.ClientToTransferNodeMessage.MessageType.AUTHENTICATE);
     msg.setAuthdata(new ClientMessaging.AuthenticateData([key]));
+    msg.setTimestamp(new Date().getTime());
     this._send(msg);
   }
 
   sendFileMetadata(filename: string, mimetype: string, size: number) {
     let msg = new ClientMessaging.ClientToTransferNodeMessage();
     msg.setType(ClientMessaging.ClientToTransferNodeMessage.MessageType.START_UPLOAD);
-    msg.setStartuploaddata(
+    msg.setStartdata(
       new ClientMessaging.StartUploadData([filename, mimetype, size])
     );
+    msg.setTimestamp(new Date().getTime());
     this._send(msg);
   }
 
