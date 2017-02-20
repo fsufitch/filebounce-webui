@@ -1,0 +1,33 @@
+<input #fileInput class="hidden" type="file" />
+
+<h2>Select a file to upload</h2>
+
+<!-- On desktop, allow drag and drop -->
+<template [ngIf]="!mobileMode">
+  <p>Drag and drop the file onto this box... </p>
+  <p>
+    <a class="btn btn-primary btn-lg" href="#" role="button" (click)="fileInput.click()">
+      ...or select it manually
+    </a>
+  </p>
+</template>
+
+<template [ngIf]="mobileMode">
+  <p>
+    <a class="btn btn-primary btn-lg" href="#" role="button" (click)="fileInput.click()">
+      Touch here to select a file
+    </a>
+  </p>
+</template>
+
+<div *ngIf="!!selected">
+  <p>
+    Selected:
+    <em> {{selected.name}} </em>
+    ({{mimetype}}; {{filesize}})
+  </p>
+  <a class="btn btn-primary btn-lg" href="#" role="button"
+    *ngIf="!confirmed" (click)="triggerFileConfirmed()">
+    Confirm
+  </a>
+</div>

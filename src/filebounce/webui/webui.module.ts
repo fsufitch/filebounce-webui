@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }  from 'filebounce/webui/app.component';
 import { StatusFooterComponent } from 'filebounce/webui/status-footer';
 import { UploadComponent } from 'filebounce/webui/upload';
+import { FileInputComponent } from 'filebounce/webui/file-input';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { UploadComponent } from 'filebounce/webui/upload';
     AppComponent,
     StatusFooterComponent,
     UploadComponent,
+    FileInputComponent,
   ],
   bootstrap: [ AppComponent ]
 })

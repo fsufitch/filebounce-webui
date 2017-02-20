@@ -13,49 +13,22 @@ import filesize = require('file-size');
   selector: 'upload',
   template: require('./upload.component.html'),
 })
-export class UploadComponent implements OnInit {
-  @ViewChild('fileInput') fileInputRef: ElementRef;
-  @Output() fileConfirmed = new EventEmitter<File>();
-
+export class UploadComponent {
   isMobile$ = this._wurflService.getWurfl().map(wurfl => wurfl.is_mobile);
 
   selectedFile$ = this._fileService.getSelectedFile();
-
-  selectedSize$ = this.selectedFile$
-    .filter(f => !!f)
-    .map(f => f.size);
-  selectedSizeHuman$ = this.selectedSize$
-    .map(size => filesize(size).human('si'));
-  selectedMimeType$ = this.selectedFile$
-    .filter(f => !!f)
-    .map(f => f.type || 'application/octet-stream');
-
   confirmedFile$ = this._fileService.getFileConfirmed();
-  showConfirm$ = this.selectedFile$.combineLatest(this.confirmedFile$)
-    .map(([file, confirmed]) => !!file && !confirmed);
 
   constructor(
     private _wurflService: WurflService,
     private _fileService: FileService,
   ) {}
 
-  get fileInput() {
-    return <HTMLInputElement>this.fileInputRef.nativeElement;
+  fileSelected(file: File) {
+    this._fileService.setFile(file);
   }
 
-  ngOnInit() {
-    this.fileInput.addEventListener('change', () => this.fileSelected());
-  }
-
-  fileSelected() {
-    this._fileService.setFile(this.fileInput.files[0]);
-  }
-
-  humanFileSize(bytes: number) {
-    return filesize(bytes).human('si');
-  }
-
-  confirmFile() {
+  fileConfirmed() {
     this._fileService.confirmFile();
   }
 

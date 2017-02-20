@@ -1,36 +1,14 @@
 <div class="jumbotron">
 
-  <input #fileInput class="hidden" type="file" />
+  <file-input
+    *ngIf="!(confirmedFile$ | async)"
+    [mobileMode]="isMobile$ | async"
+    [selected]="selectedFile$ | async"
+    [confirmed]="confirmedFile$ | async"
+    (fileSelected)="fileSelected($event)"
+    (fileConfirmed)="fileConfirmed()"
+    ></file-input>
 
-  <template [ngIf]="!(confirmedFile$ | async)">
-    <h2>Select a file to upload</h2>
-    <template [ngIf]="!(isMobile$ | async)">
-      <p>Drag and drop the file onto this box... </p>
-      <p>
-        <a class="btn btn-primary btn-lg" href="#" role="button" (click)="fileInput.click()">
-          ...or select it manually
-        </a>
-      </p>
-    </template>
-    <template [ngIf]="isMobile$ | async">
-      <p>
-        <a class="btn btn-primary btn-lg" href="#" role="button" (click)="fileInput.click()">
-          Touch here to select a file
-        </a>
-      </p>
-    </template>
-    </template>
-  <div *ngIf="selectedFile$ | async">
-    <p>
-      Selected:
-      <em> {{(selectedFile$ | async).name}} </em>
-      ({{selectedMimeType$ | async}}; {{selectedSizeHuman$ | async}})
-    </p>
-    <a class="btn btn-primary btn-lg" href="#" role="button"
-      *ngIf="showConfirm$ | async" (click)="confirmFile()">
-      Confirm
-    </a>
-  </div>
 
   <h2 *ngIf="confirmedFile$ | async"> File confirmed! </h2>
 </div>
