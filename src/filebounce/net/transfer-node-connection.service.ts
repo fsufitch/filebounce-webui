@@ -26,7 +26,7 @@ function arrayBufferToString(buf: ArrayBuffer): string {
 
 @Injectable()
 export class TransferNodeConnectionService {
-  private socket: WebSocket;
+  private socket: WebSocket = null;
   private _status$ = new BehaviorSubject<ConnectionStatus>(ConnectionStatus.CONNECTING);
   private _incoming$ = new Subject<ArrayBuffer>();
   private _incoming_clean$ = this._incoming$
@@ -36,6 +36,17 @@ export class TransferNodeConnectionService {
   private _outgoing_serialized$ = this._outgoing$.map(arr => arr.buffer);
 
   constructor() {
+    this.socketReset();
+    this._outgoing_serialized$.subscribe(buf => this.socket.send(buf));
+  }
+
+  socketReset() {
+    if (!!this.socket) {
+      this.socket.close();
+      this.socket.onerror = () => {};
+      this.socket.onclose = () => {};
+    }
+    this._status$.next(ConnectionStatus.CONNECTING);
     this.socket = new WebSocket(this.getTransferNodeUrl());
     this.socket.binaryType = 'arraybuffer';
 
@@ -49,7 +60,7 @@ export class TransferNodeConnectionService {
       this._status$.next(ConnectionStatus.CLOSED);
       this._incoming$.complete();
     };
-    this._outgoing_serialized$.subscribe(buf => this.socket.send(buf));
+
   }
 
   get open() {
