@@ -17,7 +17,37 @@ export class MessageMuxService {
 
   getAuthSuccessMessages() {
     return this.messages$.filter(msg =>
-      msg.type === ClientMessaging.TransferNodeConnectionService.MessageType.AUTH_SUCCESS
+      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.AUTH_SUCCESS
+    );
+  }
+
+  getTransferCreatedMessages() {
+    return this.messages$.filter(msg =>
+      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.TRANSFER_CREATED
+    );
+  }
+
+  getRecipientsMessages() {
+    return this.messages$.filter(msg =>
+      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.RECIPIENTS
+    );
+  }
+
+  getProgressMessages() {
+    return this.messages$.filter(msg =>
+      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.PROGRESS
+    );
+  }
+
+  getFinishedMessages() {
+    return this.messages$.filter(msg =>
+      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.FINISHED
+    );
+  }
+
+  getErrorMessages() {
+    return this.messages$.filter(msg =>
+      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.ERROR
     );
   }
 }

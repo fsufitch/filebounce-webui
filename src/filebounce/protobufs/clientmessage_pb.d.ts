@@ -1,3 +1,4 @@
+/// <reference path='./inbound-message.d.ts' />
+/// <reference path='./outbound-message.d.ts' />
 
-declare type ClientMessageJs = any;
-// XXX do some real type declarations here at some point
+declare interface ClientMessagingProto extends InboundClientMessaging, OutboundClientMessaging {}
