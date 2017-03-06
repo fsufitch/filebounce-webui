@@ -9,7 +9,9 @@ export class MessageMuxService {
   messages$ = this.transferNodeConnection.incoming
     .map(data => ClientMessaging.TransferNodeToClientMessage.deserializeBinary(data));
 
-  constructor(private transferNodeConnection: TransferNodeConnectionService) {}
+  constructor(private transferNodeConnection: TransferNodeConnectionService) {
+    this.messages$.subscribe(protobuf => console.debug('Receiving data:', (<any>protobuf).toObject()));
+  }
 
   getOpened() {
     return this.transferNodeConnection.open;

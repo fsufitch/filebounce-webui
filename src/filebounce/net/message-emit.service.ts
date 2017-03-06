@@ -11,8 +11,6 @@ export class MessageEmitService {
   sendAuthenticateMessage(key: string) {
     let msg = new ClientMessaging.ClientToTransferNodeMessage();
     msg.setType(ClientMessaging.ClientToTransferNodeMessage.MessageType.AUTHENTICATE);
-    console.log('client messaging obj');
-    console.log(ClientMessaging);
     msg.setAuthdata(new ClientMessaging.AuthenticateData([key]));
     msg.setTimestamp(new Date().getTime());
     this._send(msg);
@@ -29,6 +27,7 @@ export class MessageEmitService {
   }
 
   private _send(protobuf: any) {
+    console.debug('Sending data:', protobuf.toObject());
     let bytes: Uint8Array = protobuf.serializeBinary();
     this.transferNodeConnection.outgoing.next(bytes);
   }

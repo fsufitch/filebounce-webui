@@ -11,7 +11,6 @@ function stringToArrayBuffer(str: string): ArrayBuffer {
   if (str.length === 0) {
     return new ArrayBuffer(0);
   }
-  console.log(str);
   let buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
   let bufView = new Uint16Array(buf);
   for (let i = 0; i < str.length; i++) {
