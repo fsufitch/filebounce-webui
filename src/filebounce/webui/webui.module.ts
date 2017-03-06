@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from 'filebounce/webui/app.component';
 import { StatusFooterComponent } from 'filebounce/webui/status-footer';
-import { UploadComponent } from 'filebounce/webui/upload';
 import { FileSelectComponent } from 'filebounce/webui/file-select';
+import { FileInputComponent } from 'filebounce/webui/file-input';
 
 @NgModule({
   imports: [
@@ -13,8 +13,8 @@ import { FileSelectComponent } from 'filebounce/webui/file-select';
   declarations: [
     AppComponent,
     StatusFooterComponent,
-    UploadComponent,
     FileSelectComponent,
+    FileInputComponent,
   ],
   bootstrap: [ AppComponent ]
 })

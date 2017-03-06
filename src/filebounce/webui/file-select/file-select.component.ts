@@ -1,5 +1,5 @@
 import {
-  Component, ViewChild, OnInit, Output, EventEmitter, ElementRef
+  Component, ViewChild, Output, EventEmitter, ElementRef
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -12,7 +12,7 @@ import filesize = require('file-size');
   selector: 'file-select',
   template: require('./file-select.component.html'),
 })
-export class FileSelectComponent implements OnInit {
+export class FileSelectComponent {
   @ViewChild('fileInput') fileInputRef: ElementRef;
   @Output() fileConfirmed = new EventEmitter<File>();
 
