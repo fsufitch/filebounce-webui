@@ -2,7 +2,8 @@
 
   <h1> File Bouncer Web UI </h1>
 
-  <file-select></file-select>
+  <file-select *ngIf="selectFileStep$ | async"></file-select>
+  <upload-options *ngIf="uploadOptionsStep$ | async"></upload-options>
 
 </div>
 

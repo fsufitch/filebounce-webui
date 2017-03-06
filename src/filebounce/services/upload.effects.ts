@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { FileService } from './file.service';
 import { ConfirmSelectedFileAction } from 'filebounce/store/file/file.actions';
+import { SetUIStepAction } from 'filebounce/store/app.actions';
+import { UIStep } from 'filebounce/models/app.state';
 import { ClientMessaging } from 'filebounce/protobufs';
 import { MessageEmitService } from 'filebounce/net';
 
@@ -19,7 +21,7 @@ export class UploadEffects {
       size: file.size,
     }))
     .do(({filename, mimetype, size}) => this._messageEmitService.sendFileMetadata(filename, mimetype, size))
-    .flatMap(() => Observable.of());
+    .map(() => new SetUIStepAction({step: UIStep.SelectOptions}));
 
   constructor(
     private _actions$: Actions,

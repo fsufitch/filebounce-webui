@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
+import { AppState, UIStep } from 'filebounce/models/app.state';
+import { getUIStep } from 'filebounce/store/app.selectors';
 import { MessageMuxService, MessageEmitService } from 'filebounce/net';
 
 @Component({
@@ -18,9 +21,14 @@ export class AppComponent implements OnInit {
       .catch(err => Observable.of(false))
   );
 
+  private currentStep$ = this._store$.let(getUIStep());
+  selectFileStep$ = this.currentStep$.map(step => step === UIStep.SelectFile);
+  uploadOptionsStep$ = this.currentStep$.map(step => step === UIStep.SelectOptions);
+
   constructor(
     private _messageEmitService: MessageEmitService,
-    private _messageMuxService: MessageMuxService
+    private _messageMuxService: MessageMuxService,
+    private _store$: Store<AppState>
   ) {}
 
   ngOnInit() {
