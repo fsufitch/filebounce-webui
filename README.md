@@ -20,7 +20,7 @@ code necessary for the project to build.
 ## Development Commands
 
 | Command  | Explanation   |
-| ------- :| ------------- |
+| --------: | :------------- |
 | `npm start` | Alias for `npm run server:dev` |
 | `npm run server` | Alias for `npm run server:dev` |
 | `npm run server:dev` | start a development server at `localhost:9999`, using development options (source maps, no minification, ng2 dev mode enabled) |
