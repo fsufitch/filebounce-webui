@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "npm run gen-protobuf && webpack --config config/webpack.dev.js --progress --profile",
-    "server": "npm run server:dev",
     "server:dev": "npm run gen-protobuf && webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/",
     "server:prod": "npm run gen-protobuf && webpack-dev-server --config config/webpack.prod.js --progress --profile --watch --content-base src/",
+    "server": "npm run server:dev",
     "start": "npm run server:dev",
 
     "protobuf:js": "pbjs -t static-module -w commonjs -o src/filebounce/protobufs/protobufs.generated.js src/filebounce/protobufs/*.proto",
     "protobuf:ts": "pbts -o src/filebounce/protobufs/protobufs.generated.d.ts src/filebounce/protobufs/protobufs.generated.js",
-    "gen-protobuf": "npm run protobuf:js && npm run protobuf:ts"
+    "gen-protobuf": "npm run protobuf:js && npm run protobuf:ts",
+
+    "postinstall": "npm run gen-protobuf"
   },
   "repository": {
     "type": "git",
@@ -34,9 +36,6 @@
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/platform-server": "2.2.1",
     "@angular/router": "3.2.1",
-    "@angularclass/conventions-loader": "^1.0.2",
-    "@angularclass/hmr": "~1.2.2",
-    "@angularclass/hmr-loader": "~3.0.2",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.0",
     "@ngrx/store": "^2.2.1",
