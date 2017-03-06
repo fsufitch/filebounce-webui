@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "npm run gen-protobuf && webpack --config config/webpack.dev.js --progress --profile",
+    "build:prod": "npm run gen-protobuf && webpack --config config/webpack.prod.js --progress --profile",
     "server:dev": "npm run gen-protobuf && webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/",
     "server:prod": "npm run gen-protobuf && webpack-dev-server --config config/webpack.prod.js --progress --profile --watch --content-base src/",
     "server": "npm run server:dev",

@@ -16,6 +16,9 @@ module.exports = webpackMerge(webpackCommon, {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      __PROD__: true,
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
