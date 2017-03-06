@@ -1,4 +1,3 @@
-/// <reference types="file-size" />
 import {
   Component, ViewChild, OnInit, Output, EventEmitter, ElementRef
 } from '@angular/core';
@@ -10,10 +9,10 @@ import { FileService } from 'filebounce/services/file.service';
 import filesize = require('file-size');
 
 @Component({
-  selector: 'upload',
-  template: require('./upload.component.html'),
+  selector: 'file-select',
+  template: require('./file-select.component.html'),
 })
-export class UploadComponent implements OnInit {
+export class FileSelectComponent implements OnInit {
   @ViewChild('fileInput') fileInputRef: ElementRef;
   @Output() fileConfirmed = new EventEmitter<File>();
 

@@ -16,7 +16,7 @@
 
         "typeRoots": [
           "./custom_types",
-          "../node_modules/@types"
+          "../node_modules"
         ],
         "types": [
           "file-size",
