@@ -50,6 +50,7 @@ export class TransferNodeConnectionService {
     this.socket.binaryType = 'arraybuffer';
 
     this.socket.onopen = () => this._status$.next(ConnectionStatus.CONNECTED);
+    this.socket.onmessage = (ev) => this._incoming$.next(ev.data);
     this.socket.onerror = (err) => {
       console.error('Websocket error', err);
       this._status$.next(ConnectionStatus.ERROR);

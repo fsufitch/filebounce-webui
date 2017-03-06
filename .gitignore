@@ -38,3 +38,6 @@ jspm_packages
 
 # typescript stuff
 ts_built/
+
+# compile time auto-generated code
+src/**/*.generated*

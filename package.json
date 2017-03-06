@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": "webpack --config config/webpack.dev.js --progress --profile",
+    "build:dev": "npm run gen-protobuf && webpack --config config/webpack.dev.js --progress --profile",
     "server": "npm run server:dev",
-    "server:dev": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/",
-    "server:prod": "webpack-dev-server --config config/webpack.prod.js --progress --profile --watch --content-base src/",
-    "start": "npm run server:dev"
+    "server:dev": "npm run gen-protobuf && webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/",
+    "server:prod": "npm run gen-protobuf && webpack-dev-server --config config/webpack.prod.js --progress --profile --watch --content-base src/",
+    "start": "npm run server:dev",
+
+    "protobuf:js": "pbjs -t static-module -w commonjs -o src/filebounce/protobufs/protobufs.generated.js src/filebounce/protobufs/*.proto",
+    "protobuf:ts": "pbts -o src/filebounce/protobufs/protobufs.generated.d.ts src/filebounce/protobufs/protobufs.generated.js",
+    "gen-protobuf": "npm run protobuf:js && npm run protobuf:ts"
   },
   "repository": {
     "type": "git",
@@ -44,7 +48,6 @@
     "babel-preset-latest": "^6.22.0",
     "bootstrap-sass": "^3.3.7",
     "file-size": "^1.0.0",
-    "google-protobuf": "^3.1.1",
     "ie-shim": "^0.1.0",
     "immutable": "^3.8.1",
     "jquery": "^3.1.1",

@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { TransferNodeConnectionService } from './transfer-node-connection.service';
-import { ClientMessaging } from 'filebounce/protobufs';
+import { protobufs } from 'filebounce/protobufs';
 
 @Injectable()
 export class MessageMuxService {
   messages$ = this.transferNodeConnection.incoming
-    .map(data => ClientMessaging.TransferNodeToClientMessage.deserializeBinary(data));
+    .map(data => protobufs.TransferNodeToClientMessage.decode(data));
 
   constructor(private transferNodeConnection: TransferNodeConnectionService) {
-    this.messages$.subscribe(protobuf => console.debug('Receiving data:', (<any>protobuf).toObject()));
+    this.messages$.subscribe(data => console.debug('Receiving data:', data));
   }
 
   getOpened() {
@@ -19,37 +19,37 @@ export class MessageMuxService {
 
   getAuthSuccessMessages() {
     return this.messages$.filter(msg =>
-      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.AUTH_SUCCESS
+      msg.type === protobufs.TransferNodeToClientMessage.MessageType.AUTH_SUCCESS
     );
   }
 
   getTransferCreatedMessages() {
     return this.messages$.filter(msg =>
-      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.TRANSFER_CREATED
+      msg.type === protobufs.TransferNodeToClientMessage.MessageType.TRANSFER_CREATED
     );
   }
 
   getRecipientsMessages() {
     return this.messages$.filter(msg =>
-      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.RECIPIENTS
+      msg.type === protobufs.TransferNodeToClientMessage.MessageType.RECIPIENTS
     );
   }
 
   getProgressMessages() {
     return this.messages$.filter(msg =>
-      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.PROGRESS
+      msg.type === protobufs.TransferNodeToClientMessage.MessageType.PROGRESS
     );
   }
 
   getFinishedMessages() {
     return this.messages$.filter(msg =>
-      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.FINISHED
+      msg.type === protobufs.TransferNodeToClientMessage.MessageType.FINISHED
     );
   }
 
   getErrorMessages() {
     return this.messages$.filter(msg =>
-      msg.type === ClientMessaging.TransferNodeToClientMessage.MessageType.ERROR
+      msg.type === protobufs.TransferNodeToClientMessage.MessageType.ERROR
     );
   }
 }

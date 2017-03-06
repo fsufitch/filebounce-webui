@@ -6,8 +6,7 @@ import { FileService } from './file.service';
 import { ConfirmSelectedFileAction } from 'filebounce/store/file/file.actions';
 import { SetUIStepAction } from 'filebounce/store/app.actions';
 import { UIStep } from 'filebounce/models/app.state';
-import { ClientMessaging } from 'filebounce/protobufs';
-import { MessageEmitService } from 'filebounce/net';
+import { MessageEmitService, MessageMuxService } from 'filebounce/net';
 
 
 @Injectable()
@@ -23,9 +22,16 @@ export class UploadEffects {
     .do(({filename, mimetype, size}) => this._messageEmitService.sendFileMetadata(filename, mimetype, size))
     .map(() => new SetUIStepAction({step: UIStep.SelectOptions}));
 
+  @Effect() receiveTransferCreatedData$ = this._messageMuxService
+    .getTransferCreatedMessages()
+    .map(message => message.transferCreatedData)
+    .do(data => console.debug('received transfer created data', data))
+    .flatMap(() => Observable.of());
+
   constructor(
     private _actions$: Actions,
     private _fileService: FileService,
     private _messageEmitService: MessageEmitService,
+    private _messageMuxService: MessageMuxService
   ) {}
 }
