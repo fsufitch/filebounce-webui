@@ -27,7 +27,6 @@ export class UploadEffects {
   @Effect() receiveTransferCreatedData$ = this._messageMuxService
     .getTransferCreatedMessages()
     .map(message => message.transferCreatedData)
-    .do(data => console.debug('received transfer created data', data))
     .map(data => new SetUploadIdAction({uploadId: data.transferId}));
 
   @Effect() receiveRecipientData$ = this._messageMuxService

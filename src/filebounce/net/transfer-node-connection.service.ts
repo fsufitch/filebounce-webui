@@ -6,37 +6,33 @@ export enum ConnectionStatus {
   CONNECTING = 0, CONNECTED, ERROR, CLOSED,
 }
 
-function stringToArrayBuffer(str: string): ArrayBuffer {
-  // https://developers.google.com/web/updates/2012/06/How-to-convert-ArrayBuffer-to-and-from-String
-  if (str.length === 0) {
-    return new ArrayBuffer(0);
-  }
-  let buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
-  let bufView = new Uint16Array(buf);
-  for (let i = 0; i < str.length; i++) {
-    bufView[i] = str.charCodeAt(i);
-  }
-  return buf;
-}
-
-function arrayBufferToString(buf: ArrayBuffer): string {
-  return String.fromCharCode(...<any>buf);
+function blobToByteArray(blob: Blob): Observable<Uint8Array> {
+  let output$ = new Subject<Uint8Array>();
+  let reader = new FileReader();
+  reader.onload = () => {
+    let buf: ArrayBuffer = reader.result;
+    output$.next(new Uint8Array(buf));
+    output$.complete();
+  };
+  reader.onerror = (err) => output$.error(err);
+  reader.readAsArrayBuffer(blob);
+  return output$.asObservable();
 }
 
 @Injectable()
 export class TransferNodeConnectionService {
   private socket: WebSocket = null;
   private _status$ = new BehaviorSubject<ConnectionStatus>(ConnectionStatus.CONNECTING);
-  private _incoming$ = new Subject<ArrayBuffer>();
-  private _incoming_clean$ = this._incoming$
-    .map(buf => new Uint8Array(buf))
+  private _incoming$ = new Subject<Blob>();
+  private _incoming_bytearray$ = this._incoming$
+    .flatMap(blob => blobToByteArray(blob))
     .share();
   private _outgoing$ = new Subject<Uint8Array>();
-  private _outgoing_serialized$ = this._outgoing$.map(arr => arr.buffer);
+  private _outgoing_blob$ = this._outgoing$.map(arr => new Blob([arr]));
 
   constructor() {
     this.socketReset();
-    this._outgoing_serialized$.subscribe(buf => this.socket.send(buf));
+    this._outgoing_blob$.subscribe(buf => this.socket.send(<Blob>buf));
   }
 
   socketReset() {
@@ -47,7 +43,7 @@ export class TransferNodeConnectionService {
     }
     this._status$.next(ConnectionStatus.CONNECTING);
     this.socket = new WebSocket(this.getTransferNodeUrl());
-    this.socket.binaryType = 'arraybuffer';
+    this.socket.binaryType = 'blob';
 
     this.socket.onopen = () => this._status$.next(ConnectionStatus.CONNECTED);
     this.socket.onmessage = (ev) => this._incoming$.next(ev.data);
@@ -68,7 +64,7 @@ export class TransferNodeConnectionService {
   }
 
   get incoming() {
-    return this._incoming_clean$;
+    return this._incoming_bytearray$;
   }
 
   get outgoing(): Observer<Uint8Array> {

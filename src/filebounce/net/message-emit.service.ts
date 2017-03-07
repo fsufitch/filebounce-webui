@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as pbjs from 'protobufjs';
 
 import { TransferNodeConnectionService } from './transfer-node-connection.service';
 import { protobufs } from 'filebounce/protobufs';
-
 
 @Injectable()
 export class MessageEmitService {
