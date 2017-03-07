@@ -1,1 +1,17 @@
-Upload options go here
+<div class="jumbotron">
+  <h2> Your download URL </h2>
+
+  <div class="row">
+    <div class="col-sm-10">
+      <input type="text" [value]="downloadUrl$ | async" class="download-url"/>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-default" type="button" (click)="copyToClipboard()">
+        <span class="glyphicon glyphicon-copy"></span>
+        Copy to clipboard
+      </button>
+    </div>
+  </div>
+
+  <p class="text-muted">Send this to whoever needs to receive your file.</p>
+</div>

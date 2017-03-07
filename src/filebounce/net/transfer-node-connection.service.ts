@@ -86,5 +86,10 @@ export class TransferNodeConnectionService {
     return 'ws://localhost:8888/client_ws';
   }
 
-
+  getTransferNodeDownloadUrl(uploadId: string) {
+    if (!!process.env.TRANSFER_NODE_DOWNLOAD_URL) {
+      return `${process.env.TRANSFER_NODE_DOWNLOAD_URL}/${uploadId}`;
+    }
+    return `http://localhost:8888/download/${uploadId}`;
+  }
 }

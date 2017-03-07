@@ -12,6 +12,7 @@ import '@ngrx/effects';
 import 'rxjs/Rx';
 import 'protobufjs';
 import 'immutable';
+import 'clipboard-js';
 
 // import 'rxsocket';
 
