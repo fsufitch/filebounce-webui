@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { FileService } from './file.service';
 import { ConfirmSelectedFileAction } from 'filebounce/store/file/file.actions';
 import { SetUIStepAction } from 'filebounce/store/app.actions';
+import { SetUploadIdAction, SetRecipientsAction } from 'filebounce/store/upload-progress/upload-progress.actions';
 import { UIStep } from 'filebounce/models/app.state';
+import { Recipient } from 'filebounce/models/recipient.model';
 import { MessageEmitService, MessageMuxService } from 'filebounce/net';
 
 
@@ -26,7 +28,13 @@ export class UploadEffects {
     .getTransferCreatedMessages()
     .map(message => message.transferCreatedData)
     .do(data => console.debug('received transfer created data', data))
-    .flatMap(() => Observable.of());
+    .map(data => new SetUploadIdAction({uploadId: data.transferId}));
+
+  @Effect() receiveRecipientData$ = this._messageMuxService
+    .getRecipientsMessages()
+    .map(message => message.recipientsData.recipients)
+    .map(recipients => recipients.map(r => <Recipient>r))
+    .map(recipients => new SetRecipientsAction({recipients}));
 
   constructor(
     private _actions$: Actions,
