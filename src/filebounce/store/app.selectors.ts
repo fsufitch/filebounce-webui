@@ -10,3 +10,11 @@ export function getFileState() {
 export function getUIStep() {
   return (state$: Observable<AppState>) => state$.select(s => s.currentStep);
 }
+
+export function getUploadOptions() {
+  return (state$: Observable<AppState>) => state$.select(s => s.uploadOptions);
+}
+
+export function getUploadProgress() {
+  return (state$: Observable<AppState>) => state$.select(s => s.uploadProgress);
+}
