@@ -55,12 +55,13 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      __PROD__: false,
+    }),
     new CommonsChunkPlugin({
       name: ['polyfills', 'vendor'].reverse()
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new CheckerPlugin(),
-
   ],
 };
