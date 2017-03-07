@@ -10,9 +10,10 @@ import '@ngrx/store';
 import '@ngrx/effects';
 
 import 'rxjs/Rx';
-import 'protobufjs';
+import 'protobufjs/minimal';
 import 'immutable';
 import 'clipboard-js';
+import 'file-size';
 
 // import 'rxsocket';
 
