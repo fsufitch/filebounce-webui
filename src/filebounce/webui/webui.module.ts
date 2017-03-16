@@ -6,6 +6,7 @@ import { StatusFooterComponent } from './status-footer';
 import { FileSelectComponent } from './file-select';
 import { FileInputComponent } from './file-input';
 import { UploadOptionsComponent } from './upload-options';
+import { RecipientListComponent } from './recipient-list';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { UploadOptionsComponent } from './upload-options';
     FileSelectComponent,
     FileInputComponent,
     UploadOptionsComponent,
+    RecipientListComponent,
   ],
   bootstrap: [ AppComponent ]
 })

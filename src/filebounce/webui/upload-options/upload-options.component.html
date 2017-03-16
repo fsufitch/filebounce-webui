@@ -4,7 +4,7 @@
       <div class="input-group">
         <input type="text" class="form-control download-url" [value]="downloadUrl$ | async">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
+          <button class="btn btn-default" type="button" (click)="copyToClipboard()">
             <span class="glyphicon glyphicon-copy"></span>
             Copy
           </button>
@@ -30,7 +30,7 @@
             <p>
           </div>
           <div class="panel-footer text-right">
-            <button class="btn btn-primary"> Go! </button>
+            <button class="btn btn-primary" [disabled]="!(numRecipients$ | async)"> Go! </button>
           </div>
         </div>
       </div>
@@ -75,6 +75,6 @@
     </div>
   </div>
   <div class="col-md-4">
-    Recipient list goes here
+    <recipient-list></recipient-list>
   </div>
 </div>

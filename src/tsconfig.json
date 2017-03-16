@@ -12,19 +12,7 @@
         "allowJs": true,
 
         "baseUrl": ".",
-        "outDir": "../ts_built/",
-
-        "typeRoots": [
-          "./custom_types",
-          "../node_modules/",
-          "../node_modules/@types"
-        ],
-        "types": [
-          "file-size",
-          "long",
-          "node",
-          "ws"
-        ]
+        "outDir": "../ts_built/"
     },
     "awesomeTypescriptLoaderOptions": {
       "useBabel": true,

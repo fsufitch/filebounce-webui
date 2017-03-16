@@ -1,0 +1,22 @@
+<h3>
+  Recipients
+  <span class="badge">{{numRecipients$ | async}}</span>
+</h3>
+
+<p *ngIf="!(numRecipients$ | async)" class="text-muted">
+  Nobody has started downloading your file yet.
+</p>
+
+<ul class="list-group" *ngIf="!!(numRecipients$ | async)">
+  <li class="list-group-item" *ngFor="let recipient of (recipients$ | async)">
+    <span *ngIf="!!recipient.ipv4">
+      IPv4: <code>{{recipient.ipv4}}</code>
+    </span>
+    <span *ngIf="!!recipient.ipv6">
+      IPv6: <code>{{recipient.ipv6}}</code>
+    </span>
+    <span *ngIf="!!recipient.identity" class="text-muted">
+      (ID: {{recipient.identity}})
+    </span>
+  </li>
+</ul>
