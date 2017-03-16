@@ -15,8 +15,6 @@ import 'immutable';
 import 'clipboard-js';
 import 'file-size';
 
-// import 'rxsocket';
-
 import * as $ from 'jquery';
 let _window = <any>window;
 _window.$ = _window.jQuery = $;
