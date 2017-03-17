@@ -19,7 +19,7 @@
       </p>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!(uploadOptionsSubmitted$ | async)">
 
       <div class="col-sm-4">
         <div class="panel panel-info">
@@ -76,6 +76,25 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="row" *ngIf="uploadOptionsSubmitted$ | async">
+      <template [ngIf]="waitingForRecipients$ | async">
+        <h3>
+          Waiting for recipients...
+          <small>
+            ({{recipientsCount$ | async}}/{{waitingForRecipientsCount$ | async}})
+          </small>
+        </h3>
+      </template>
+      <template [ngIf]="waitingForTimer$ | async">
+        <h3>
+          Waiting for timer...
+          <small>
+            {{waitingSecondsRemaining$ | async}} seconds remaining
+          </small>
+        </h3>
+      </template>
     </div>
   </div>
   <div class="col-md-4">

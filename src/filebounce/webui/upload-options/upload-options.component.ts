@@ -19,6 +19,16 @@ export class UploadOptionsComponent {
   recipients$ = this._uploadProgressService.getRecipients();
   recipientsCount$ = this.recipients$.map(recipients => recipients.size);
 
+  uploadOptionsSubmitted$ = this._uploadOptionsService.getUploadOptionsSubmitted();
+
+  waitingForRecipients$ = this._uploadOptionsService.getUploadTrigger()
+    .map(trigger => trigger === UploadTrigger.WaitForRecipients);
+  waitingForRecipientsCount$ = this._uploadOptionsService.getMinRecipients();
+
+  waitingForTimer$ = this._uploadOptionsService.getUploadTrigger()
+    .map(trigger => trigger === UploadTrigger.Timer);
+  waitingSecondsRemaining$ = this._uploadOptionsService.getWaitSecondsRemaining();
+
   constructor(
     private _uploadOptionsService: UploadOptionsService,
     private _uploadProgressService: UploadProgressService,

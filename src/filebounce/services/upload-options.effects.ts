@@ -35,7 +35,7 @@ export class UploadOptionsEffects {
   private _waitSecondsRemaining$ = this._uploadOptionsSubmitted$
     .filter(({trigger}) => trigger === UploadTrigger.Timer)
     .switchMap(({waitSeconds}) => Observable.timer(0, 1000)
-      .scan((secondsRemaining) => secondsRemaining - 1, waitSeconds)
+      .scan((secondsRemaining) => secondsRemaining - 1, waitSeconds + 1)
       .takeWhile(secondsRemaining => secondsRemaining >= 0)
     );
 

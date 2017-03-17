@@ -7,6 +7,7 @@ import { UploadTrigger } from 'filebounce/models/upload-options.state';
 import { getUploadOptions } from 'filebounce/store/app.selectors';
 import {
   getTrigger, getWaitSeconds, getMinRecipients, getUploadOptionsSubmitted,
+  getWaitSecondsRemaining,
 } from 'filebounce/store/upload-options/upload-options.selectors';
 import * as actions from 'filebounce/store/upload-options/upload-options.actions';
 
@@ -22,6 +23,13 @@ export class UploadOptionsService {
   getWaitSeconds() {
     return this._store.let(compose(
       getWaitSeconds(),
+      getUploadOptions()
+    ));
+  }
+
+  getWaitSecondsRemaining() {
+    return this._store.let(compose(
+      getWaitSecondsRemaining(),
       getUploadOptions()
     ));
   }
