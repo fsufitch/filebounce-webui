@@ -30,7 +30,9 @@
             <p>
           </div>
           <div class="panel-footer text-right">
-            <button class="btn btn-primary" [disabled]="!(numRecipients$ | async)"> Go! </button>
+            <button class="btn btn-primary"
+              [disabled]="!(numRecipients$ | async)"
+              (click)="triggerManual()"> Go! </button>
           </div>
         </div>
       </div>
@@ -45,11 +47,12 @@
             <p>
             <div class="form-group">
               <label for="minRecipients">Minimum recipients</label>
-              <input type="number" id="minRecipients" class="form-control" value="1" />
+              <input type="number" #minRecipients id="minRecipients" class="form-control" value="1" />
             </div>
           </div>
           <div class="panel-footer text-right">
-            <button class="btn btn-primary"> Go! </button>
+            <button class="btn btn-primary"
+              (click)="triggerMinRecipients(minRecipients.value)"> Go! </button>
           </div>
         </div>
       </div>
@@ -64,11 +67,12 @@
             <p>
             <div class="form-group">
               <label for="waitSeconds">Seconds to wait</label>
-              <input type="number" id="waitSeconds" class="form-control" value="15" />
+              <input type="number" #waitSeconds id="waitSeconds" class="form-control" value="15" />
             </div>
           </div>
           <div class="panel-footer text-right">
-            <button class="btn btn-primary"> Go! </button>
+            <button class="btn btn-primary"
+              (click)="triggerWaitSeconds(waitSeconds.value)"> Go! </button>
           </div>
         </div>
       </div>

@@ -14,6 +14,12 @@ export class SetWaitSecondsAction implements Action {
   constructor(public payload: {waitSeconds: number}) {}
 }
 
+export class SetWaitSecondsRemainingAction implements Action {
+  static type = 'filebounce/uploadOptions/setWaitSecondsRemaining';
+  type = SetWaitSecondsRemainingAction.type;
+  constructor(public payload: {waitSecondsRemaining: number}) {}
+}
+
 export class SetMinRecipientsAction implements Action {
   static type = 'filebounce/uploadOptions/setMinRecipients';
   type = SetMinRecipientsAction.type;

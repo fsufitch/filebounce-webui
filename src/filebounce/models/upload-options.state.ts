@@ -9,6 +9,7 @@ export enum UploadTrigger {
 interface UploadOptionsData {
   trigger: UploadTrigger;
   waitSeconds: number;
+  waitSecondsRemaining: number;
   minRecipients: number;
   optionsSubmitted: boolean;
 }
@@ -16,6 +17,7 @@ interface UploadOptionsData {
 export const DEFAULT_UPLOAD_OPTIONS_STATE: UploadOptionsData = {
   trigger: UploadTrigger.Manual,
   waitSeconds: 0,
+  waitSecondsRemaining: 0,
   minRecipients: 0,
   optionsSubmitted: false,
 };
@@ -23,7 +25,8 @@ export const DEFAULT_UPLOAD_OPTIONS_STATE: UploadOptionsData = {
 export class UploadOptions extends Record(DEFAULT_UPLOAD_OPTIONS_STATE) implements UploadOptionsData {
   trigger: UploadTrigger;
   waitSeconds: number;
-  minRecipients: number;
+  waitSecondsRemaining: number;
+minRecipients: number;
   optionsSubmitted: boolean;
 
   clear(): this {
@@ -36,6 +39,10 @@ export class UploadOptions extends Record(DEFAULT_UPLOAD_OPTIONS_STATE) implemen
 
   setWaitSeconds(seconds: number) {
     return <this>this.set('waitSeconds', seconds);
+  }
+
+  setWaitSecondsRemaining(seconds: number) {
+    return <this>this.set('waitSecondsRemaining', seconds);
   }
 
   setMinRecipients(minRecipients: number) {

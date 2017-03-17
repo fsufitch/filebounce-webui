@@ -2,7 +2,8 @@ import { Action, ActionReducer } from '@ngrx/store';
 
 import { UploadOptions } from 'filebounce/models/upload-options.state';
 import {
-  SetTriggerAction, SetWaitSecondsAction, SetMinRecipientsAction, UploadOptionsSubmittedAction,
+  SetTriggerAction, SetWaitSecondsAction, SetMinRecipientsAction,
+  UploadOptionsSubmittedAction, SetWaitSecondsRemainingAction,
 } from './upload-options.actions';
 
 function _uploadOptionsReducer(state = new UploadOptions(), action: Action): UploadOptions {
@@ -16,6 +17,12 @@ function _uploadOptionsReducer(state = new UploadOptions(), action: Action): Upl
     case SetWaitSecondsAction.type: {
       let seconds = (<SetWaitSecondsAction>action).payload.waitSeconds;
       state = state.setWaitSeconds(seconds);
+      break;
+    }
+
+    case SetWaitSecondsRemainingAction.type: {
+      let seconds =  (<SetWaitSecondsRemainingAction>action).payload.waitSecondsRemaining;
+      state = state.setWaitSecondsRemaining(seconds);
       break;
     }
 

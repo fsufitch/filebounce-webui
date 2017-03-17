@@ -11,6 +11,10 @@ export function getWaitSeconds() {
   return (state$: Observable<UploadOptions>) => state$.select(s => s.waitSeconds);
 }
 
+export function getWaitSecondsRemaining() {
+  return (state$: Observable<UploadOptions>) => state$.select(s => s.waitSecondsRemaining);
+}
+
 export function getMinRecipients() {
   return (state$: Observable<UploadOptions>) => state$.select(s => s.minRecipients);
 }
