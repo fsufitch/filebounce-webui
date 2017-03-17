@@ -6,26 +6,13 @@ export enum ConnectionStatus {
   CONNECTING = 0, CONNECTED, ERROR, CLOSED,
 }
 
-function blobToByteArray(blob: Blob): Observable<Uint8Array> {
-  let output$ = new Subject<Uint8Array>();
-  let reader = new FileReader();
-  reader.onload = () => {
-    let buf: ArrayBuffer = reader.result;
-    output$.next(new Uint8Array(buf));
-    output$.complete();
-  };
-  reader.onerror = (err) => output$.error(err);
-  reader.readAsArrayBuffer(blob);
-  return output$.asObservable();
-}
-
 @Injectable()
 export class TransferNodeConnectionService {
   private socket: WebSocket = null;
   private _status$ = new BehaviorSubject<ConnectionStatus>(ConnectionStatus.CONNECTING);
   private _incoming$ = new Subject<Blob>();
   private _incoming_bytearray$ = this._incoming$
-    .flatMap(blob => blobToByteArray(blob))
+    .flatMap(blob => TransferNodeConnectionService.blobToByteArray(blob))
     .share();
   private _outgoing$ = new Subject<Uint8Array>();
   private _outgoing_blob$ = this._outgoing$.map(arr => new Blob([arr]));
@@ -87,5 +74,18 @@ export class TransferNodeConnectionService {
       return `${process.env.TRANSFER_NODE_DOWNLOAD_URL}/${uploadId}`;
     }
     return `http://localhost:8888/download/${uploadId}`;
+  }
+
+  static blobToByteArray(blob: Blob): Observable<Uint8Array> {
+    let output$ = new Subject<Uint8Array>();
+    let reader = new FileReader();
+    reader.onload = () => {
+      let buf: ArrayBuffer = reader.result;
+      output$.next(new Uint8Array(buf));
+      output$.complete();
+    };
+    reader.onerror = (err) => output$.error(err);
+    reader.readAsArrayBuffer(blob);
+    return output$.asObservable();
   }
 }

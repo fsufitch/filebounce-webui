@@ -14,3 +14,14 @@ export function getRecipients() {
 export function getBytesUploaded() {
   return (state$: Observable<UploadProgress>) => state$.select(s => s.bytesUploaded);
 }
+
+export function getMoreDataRequest() {
+  return (state$: Observable<UploadProgress>) => state$.select(s => ({
+    requestedChunks: s.requestedChunks,
+    requestedChunkSize: s.requestedChunkSize,
+  }));
+}
+
+export function getFileReadOffset() {
+  return (state$: Observable<UploadProgress>) => state$.select(s => s.fileReadOffset);
+}

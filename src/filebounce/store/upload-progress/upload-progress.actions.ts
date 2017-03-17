@@ -19,3 +19,26 @@ export class SetBytesUploadedAction implements Action {
   type = SetBytesUploadedAction.type;
   constructor(public payload: {bytes: number}) {}
 }
+
+export class SetMoreDataRequestAction implements Action {
+  static type = 'filebounce/uploadProgress/setMoreDataRequest';
+  type = SetMoreDataRequestAction.type;
+  constructor(public payload: {chunks: number, chunkSize: number}) {}
+}
+
+export class ProcessMoreDataRequestAction implements Action {
+  static type = 'filebounce/uploadProgress/processMoreDataRequest';
+  type = ProcessMoreDataRequestAction.type;
+}
+
+export class UploadChunkAction implements Action {
+  static type = 'filebounce/uploadProgress/uploadChunk';
+  type = UploadChunkAction.type;
+  constructor(public payload: {bytes: number}) {}
+}
+
+export class SetFileReadOffsetAction implements Action {
+  static type = 'filebounce/uploadProgress/setFileReadOffset';
+  type = SetFileReadOffsetAction.type;
+  constructor(public payload: {offset: number}) {}
+}
