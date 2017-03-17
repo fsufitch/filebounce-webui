@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   private currentStep$ = this._store$.let(getUIStep());
   selectFileStep$ = this.currentStep$.map(step => step === UIStep.SelectFile);
   uploadOptionsStep$ = this.currentStep$.map(step => step === UIStep.SelectOptions);
+  uploadingStep$ = this.currentStep$.map(step => step === UIStep.Uploading);
 
   constructor(
     private _messageEmitService: MessageEmitService,

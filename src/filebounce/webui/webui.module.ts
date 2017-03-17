@@ -7,6 +7,7 @@ import { FileSelectComponent } from './file-select';
 import { FileInputComponent } from './file-input';
 import { UploadOptionsComponent } from './upload-options';
 import { RecipientListComponent } from './recipient-list';
+import { UploadProgressComponent } from './upload-progress';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { RecipientListComponent } from './recipient-list';
     FileInputComponent,
     UploadOptionsComponent,
     RecipientListComponent,
+    UploadProgressComponent,
   ],
   bootstrap: [ AppComponent ]
 })

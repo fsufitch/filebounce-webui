@@ -4,6 +4,7 @@
 
   <file-select *ngIf="selectFileStep$ | async"></file-select>
   <upload-options *ngIf="uploadOptionsStep$ | async"></upload-options>
+  <upload-progress *ngIf="uploadingStep$ | async"></upload-progress>
 
 </div>
 

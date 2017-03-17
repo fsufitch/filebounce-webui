@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-sm-8">
+    <h2> Uploading your file... </h2>
+
+    <p><strong> Filename: {{filename$ | async}}</strong></p>
+    <p><strong> Mimetype: {{mimetype$ | async}}</strong></p>
+    <p><strong> Size: {{filesizeHuman$ | async}}</strong></p>
+
+    <div class="progress">
+      <div class="progress-bar progress-bar-info progress-bar-striped"
+        role="progressbar"
+        [attr.aria-valuenow]="percentProgressRounded$ | async"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [style.width]="percentProgressString$ | async">
+        {{percentProgressString$ | async}}
+        ({{bytesUploadedHuman$ | async}}/{{filesizeHuman$ | async}})
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <recipient-list></recipient-list>
+  </div>
+
+</div>
