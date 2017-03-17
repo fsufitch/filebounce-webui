@@ -87,7 +87,7 @@ export class UploadEffects {
     .share();
 
   @Effect() uploadChunk$ = this._readChunk$
-    .filter(({data}) => data.size >= 0)
+    .filter(({data}) => data.size > 0)
     .do(({order, data}) => this._messageEmitService.sendFileData(data, order))
     .map(({offset, data}) => new SetFileReadOffsetAction({offset: offset + data.size}));
 
