@@ -1,6 +1,14 @@
 <div class="file-select">
   <p>
-    <strong> Current file selected: ... </strong>
+    <strong> Current file selected:
+      <span *ngIf="!(haveFile$ | async)">
+        <em> none selected yet </em>
+      </span>
+      <span *ngIf="haveFile$ | async">
+        {{ fileName$ | async }}
+        ({{ fileSize$ | async }}; {{ fileType$ | async }})
+      </span>
+    </strong>
   </p>
   <p>
     <button class="manual-select"
