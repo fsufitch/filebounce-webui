@@ -4,6 +4,7 @@ import { FileDropModule } from 'angular2-file-drop';
 
 import { AppComponent } from './app.component';
 import { FileSelectComponent, FileSelectService } from './file-select';
+import { StatusFooterComponent } from './status-footer';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { FileSelectComponent, FileSelectService } from './file-select';
   declarations: [
     AppComponent,
     FileSelectComponent,
+    StatusFooterComponent,
   ],
   providers: [
     FileSelectService,

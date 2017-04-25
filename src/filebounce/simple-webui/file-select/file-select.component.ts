@@ -18,9 +18,9 @@ export class FileSelectComponent {
 
   file$ = this.fileService.getSelectedFile();
   haveFile$ = this.file$.map(f => !_.isNil(f));
-  fileName$ = this.file$.map(f => f.name);
-  fileType$ = this.file$.map(f => f.type);
-  fileSize$ = this.file$.map(f => filesize(f.size).human('si'));
+  fileName$ = this.file$.map(f => <string>_.get(f, 'name'));
+  fileType$ = this.file$.map(f => <string>_.get(f, 'type'));
+  fileSize$ = this.file$.map(f => filesize(<number>_.get(f, 'size', 0)).human('si'));
 
   fileChangeEvent(event: Event) {
     let file = <File>_.get(event, 'target.files[0]');

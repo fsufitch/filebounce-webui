@@ -6,11 +6,13 @@ import { UploadEffects } from './upload.effects';
 import { UploadOptionsEffects } from './upload-options.effects';
 import { UploadOptionsService } from './upload-options.service';
 import { UploadProgressService } from './upload-progress.service';
+import { ConnectionEffects } from './connection.effects';
 
 @NgModule({
   imports: [
-    EffectsModule.run(UploadEffects),
+    EffectsModule.run(ConnectionEffects),
     EffectsModule.run(UploadOptionsEffects),
+    EffectsModule.run(UploadEffects),
   ],
   providers: [
     FileService,

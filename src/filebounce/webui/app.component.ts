@@ -2,9 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { AppState, UIStep } from 'filebounce/models/app.state';
-import { getUIStep } from 'filebounce/store/app.selectors';
+import { AppState } from 'filebounce/models/app.state';
+// import { getUIStep } from 'filebounce/store/app.selectors';
 import { MessageMuxService, MessageEmitService } from 'filebounce/net';
+
+var getUIStep: any;
 
 @Component({
   selector: 'ng2app',
@@ -21,11 +23,11 @@ export class AppComponent implements OnInit {
       .catch(err => Observable.of(false))
   );
 
-  private currentStep$ = this._store$.let(getUIStep());
-  selectFileStep$ = this.currentStep$.map(step => step === UIStep.SelectFile);
-  uploadOptionsStep$ = this.currentStep$.map(step => step === UIStep.SelectOptions);
-  uploadingStep$ = this.currentStep$.map(step => step === UIStep.Uploading);
-  uploadCompleteStep$ = this.currentStep$.map(step => step === UIStep.UploadComplete);
+  // private currentStep$ = this._store$.let(getUIStep());
+  // selectFileStep$ = this.currentStep$.map(step => step === UIStage.SelectFile);
+  // uploadOptionsStep$ = this.currentStep$.map(step => step === UIStage.SelectOptions);
+  // uploadingStep$ = this.currentStep$.map(step => step === UIStage.Uploading);
+  // uploadCompleteStep$ = this.currentStep$.map(step => step === UIStage.UploadComplete);
 
   constructor(
     private _messageEmitService: MessageEmitService,

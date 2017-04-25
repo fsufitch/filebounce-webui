@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { RxWebSocket } from 'rxsocket';  // :(
+import * as _ from 'lodash';
 import { Observable, Observer, BehaviorSubject, Subject } from 'rxjs/Rx';
 
 export enum ConnectionStatus {
@@ -9,7 +9,7 @@ export enum ConnectionStatus {
 @Injectable()
 export class TransferNodeConnectionService {
   private socket: WebSocket = null;
-  private _status$ = new BehaviorSubject<ConnectionStatus>(ConnectionStatus.CONNECTING);
+  private _status$ = new BehaviorSubject<ConnectionStatus>(ConnectionStatus.CLOSED);
   private _incoming$ = new Subject<Blob>();
   private _incoming_bytearray$ = this._incoming$
     .flatMap(blob => TransferNodeConnectionService.blobToByteArray(blob))
@@ -18,15 +18,27 @@ export class TransferNodeConnectionService {
   private _outgoing_blob$ = this._outgoing$.map(arr => new Blob([arr]));
 
   constructor() {
-    this.socketReset();
     this._outgoing_blob$.subscribe(buf => this.socket.send(<Blob>buf));
   }
 
-  socketReset() {
+  socketDisconnect() {
+    console.debug('Disconnecting...');
+    if (!this.socket || this.socket.readyState === WebSocket.CLOSED) {
+      console.warn('Tried to close transfer node socket, but it is already closed');
+      return;
+    }
+    this.socket.close();
+    this.socket.onerror = () => {};
+    this.socket.onclose = () => {};
+    this.socket = null;
+  }
+
+  socketReconnect() {
+    console.debug('Connecting...', this.getTransferNodeUrl());
     if (!!this.socket) {
-      this.socket.close();
-      this.socket.onerror = () => {};
-      this.socket.onclose = () => {};
+      console.warn('Tried to open transfer node socket, but it is already open');
+      this.socketDisconnect();
+      console.debug('Disconnected now. Attempting to connect...');
     }
     this._status$.next(ConnectionStatus.CONNECTING);
     this.socket = new WebSocket(this.getTransferNodeUrl());

@@ -31,6 +31,11 @@ export class ProcessMoreDataRequestAction implements Action {
   type = ProcessMoreDataRequestAction.type;
 }
 
+export class StartUploadAction implements Action {
+  static type = 'filebounce/uploadProgress/startUpload';
+  type = StartUploadAction.type;
+}
+
 export class UploadChunkAction implements Action {
   static type = 'filebounce/uploadProgress/uploadChunk';
   type = UploadChunkAction.type;

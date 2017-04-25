@@ -5,13 +5,13 @@ import * as Long from 'long';
 
 import { FileService } from './file.service';
 import { ConfirmSelectedFileAction } from 'filebounce/store/file/file.actions';
-import { SetUIStepAction } from 'filebounce/store/app.actions';
+import { SetSimpleUIStageAction } from 'filebounce/store/app.actions';
 import {
   SetUploadIdAction, SetRecipientsAction, SetBytesUploadedAction,
   SetFileReadOffsetAction, ProcessMoreDataRequestAction, SetMoreDataRequestAction,
-  UploadChunkAction,
+  UploadChunkAction, StartUploadAction,
 } from 'filebounce/store/upload-progress/upload-progress.actions';
-import { UIStep } from 'filebounce/models/app.state';
+import { SimpleUIStage } from 'filebounce/models/app.state';
 import { Recipient } from 'filebounce/models/recipient.model';
 import { MessageEmitService, MessageMuxService } from 'filebounce/net';
 import { UploadProgressService } from 'filebounce/services/upload-progress.service';
@@ -28,7 +28,7 @@ export class UploadEffects {
       size: file.size,
     }))
     .do(({filename, mimetype, size}) => this._messageEmitService.sendFileMetadata(filename, mimetype, size))
-    .map(() => new SetUIStepAction({step: UIStep.SelectOptions}));
+    .map(() => new SetSimpleUIStageAction({stage: SimpleUIStage.FileSelected}));
 
   @Effect() receiveTransferCreatedData$ = this._messageMuxService
     .getTransferCreatedMessages()
@@ -41,6 +41,7 @@ export class UploadEffects {
     .flatMap(({uploadId, chunks, chunkSize}) => Observable.from([
       new SetUploadIdAction({uploadId}),
       new SetMoreDataRequestAction({chunks, chunkSize}),
+      new SetSimpleUIStageAction({stage: SimpleUIStage.UploadReady}),
     ]));
 
   @Effect() receiveRecipientData$ = this._messageMuxService
@@ -50,9 +51,7 @@ export class UploadEffects {
     .map(recipients => new SetRecipientsAction({recipients}));
 
   @Effect() startUpload$ = this._actions$
-    .ofType(SetUIStepAction.type)
-    .map(action => <SetUIStepAction>action)
-    .filter(action => action.payload.step === UIStep.Uploading)
+    .ofType(StartUploadAction.type)
     .flatMap(() => Observable.from([
       new SetBytesUploadedAction({bytes: 0}),
       new SetFileReadOffsetAction({offset: 0}),
@@ -97,7 +96,7 @@ export class UploadEffects {
       .filter(({data}) => data.size === 0)
       .take(1)
     )
-    .map(() => new SetUIStepAction({step: UIStep.UploadComplete}));
+    .map(() => new SetSimpleUIStageAction({stage: SimpleUIStage.UploadComplete}));
 
   @Effect() receiveProgressData$ = this._messageMuxService
     .getProgressMessages()

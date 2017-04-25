@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
-import { UIStep } from 'filebounce/models/app.state';
+import { SimpleUIStage } from 'filebounce/models/app.state';
 import { UploadTrigger } from 'filebounce/models/upload-options.state';
 import { UploadOptionsService } from './upload-options.service';
 import { UploadProgressService } from './upload-progress.service';
 import * as appActions from 'filebounce/store/app.actions';
 import * as uploadOptionsActions from 'filebounce/store/upload-options/upload-options.actions';
+import * as uploadProgressActions from 'filebounce/store/upload-progress/upload-progress.actions';
 
 @Injectable()
 export class UploadOptionsEffects {
@@ -20,9 +21,9 @@ export class UploadOptionsEffects {
       (action, trigger, waitSeconds, minRecipients) => ({trigger, waitSeconds, minRecipients})
     );
 
-  @Effect() manualUploadNextStep$ = this._uploadOptionsSubmitted$
-    .filter(({trigger}) => trigger === UploadTrigger.Manual)
-    .map(() => new appActions.SetUIStepAction({step: UIStep.Uploading}));
+  // @Effect() manualUploadNextStep$ = this._uploadOptionsSubmitted$
+  //   .filter(({trigger}) => trigger === UploadTrigger.Manual)
+  //   .map(() => new appActions.SetUIStepAction({step: UIStep.Uploading}));
 
   @Effect() minRecipientsNextStep$ = this._uploadOptionsSubmitted$
     .filter(({trigger}) => trigger === UploadTrigger.WaitForRecipients)
@@ -30,21 +31,24 @@ export class UploadOptionsEffects {
         .map(list => list.size >= minRecipients)
     )
     .filter(enoughRecipients => enoughRecipients)
-    .map(() => new appActions.SetUIStepAction({step: UIStep.Uploading}));
+    .flatMap(() => Observable.from([
+      new appActions.SetSimpleUIStageAction({stage: SimpleUIStage.UploadInProgress}),
+      new uploadProgressActions.StartUploadAction(),
+    ]));
 
-  private _waitSecondsRemaining$ = this._uploadOptionsSubmitted$
-    .filter(({trigger}) => trigger === UploadTrigger.Timer)
-    .switchMap(({waitSeconds}) => Observable.timer(0, 1000)
-      .scan((secondsRemaining) => secondsRemaining - 1, waitSeconds + 1)
-      .takeWhile(secondsRemaining => secondsRemaining >= 0)
-    );
+  // private _waitSecondsRemaining$ = this._uploadOptionsSubmitted$
+  //   .filter(({trigger}) => trigger === UploadTrigger.Timer)
+  //   .switchMap(({waitSeconds}) => Observable.timer(0, 1000)
+  //     .scan((secondsRemaining) => secondsRemaining - 1, waitSeconds + 1)
+  //     .takeWhile(secondsRemaining => secondsRemaining >= 0)
+  //   );
+  //
+  // @Effect() setWaitSecondsRemaining$ = this._waitSecondsRemaining$
+  //   .map(waitSecondsRemaining => new uploadOptionsActions.SetWaitSecondsRemainingAction({waitSecondsRemaining}));
 
-  @Effect() setWaitSecondsRemaining$ = this._waitSecondsRemaining$
-    .map(waitSecondsRemaining => new uploadOptionsActions.SetWaitSecondsRemainingAction({waitSecondsRemaining}));
-
-  @Effect() waitSecondsNextStep$ = this._waitSecondsRemaining$
-    .filter(seconds => seconds === 0)
-    .map(() => new appActions.SetUIStepAction({step: UIStep.Uploading}));
+  // @Effect() waitSecondsNextStep$ = this._waitSecondsRemaining$
+  //   .filter(seconds => seconds === 0)
+  //   .map(() => new appActions.SetUIStepAction({step: UIStep.Uploading}));
 
   constructor(
     private _actions$: Actions,
