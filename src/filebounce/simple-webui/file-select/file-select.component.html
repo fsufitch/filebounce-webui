@@ -1,0 +1,15 @@
+<div class="file-select">
+  <p>
+    <strong> Current file selected: ... </strong>
+  </p>
+  <p>
+    <button class="manual-select"
+      (click)="fileInput.click()">
+      Select a file manually
+    </button>
+    , or drag and drop it onto this page
+  </p>
+  <input
+    #fileInput id="fileInput" type="file"
+    (change)="fileChangeEvent($event)"/>
+</div>

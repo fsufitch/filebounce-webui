@@ -1,0 +1,14 @@
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+div.file-select {
+  @extend .panel;
+  @extend .panel-default;
+
+  padding: 1em;
+  font-size: larger;
+
+  #fileInput {
+    display: none;
+  }
+}

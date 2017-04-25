@@ -41,6 +41,7 @@
     "@ngrx/store": "^2.2.1",
     "@types/jquery": "^2.0.39",
     "@types/webpack": "^2.2.4",
+    "angular2-file-drop": "^0.2.0",
     "assets-webpack-plugin": "^3.5.1",
     "awesome-typescript-loader": "^3.0.0-beta.18",
     "babel-core": "^6.22.1",
@@ -66,6 +67,7 @@
   "devDependencies": {
     "@types/clipboard-js": "^0.3.2",
     "@types/jquery": "^2.0.34",
+    "@types/lodash": "^4.14.63",
     "@types/long": "^3.0.31",
     "@types/node": "^7.0.13",
     "@types/webpack": "^2.0.0",

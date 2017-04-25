@@ -1,6 +1,13 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-h1 {
-  color: red;
+div.whole-page {
+  height: 100vh;
+  width: 100vw;
+  margin-left: 0px;
+  margin-top: 0px;
+}
+
+div.header {
+  @extend .text-center;
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { FileDropModule } from 'angular2-file-drop';
 
+import { FileSelectService } from './file-select';
 
-console.log(require('bootstrap-sass'));
 @Component({
   selector: 'ng2app',
   template: require('./app.component.html'),
@@ -13,4 +14,9 @@ console.log(require('bootstrap-sass'));
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
+  constructor(private fileSelectService: FileSelectService) {}
+
+  onFileDrop(f: File) {
+    this.fileSelectService.selectFile(f);
+  }
 }
