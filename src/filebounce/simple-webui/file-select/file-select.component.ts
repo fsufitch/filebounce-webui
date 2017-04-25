@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import filesize = require('file-size');
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { FileSelectService } from './file-select.service';
 import { FileService } from 'filebounce/services/file.service';
@@ -11,6 +11,8 @@ import { FileService } from 'filebounce/services/file.service';
   styles: [require('./file-select.component.scss')],
 })
 export class FileSelectComponent {
+  @Input() allowSelect: boolean;
+
   constructor(
     private fileSelectService: FileSelectService,
     private fileService: FileService,

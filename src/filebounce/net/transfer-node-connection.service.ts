@@ -16,9 +16,13 @@ export class TransferNodeConnectionService {
     .share();
   private _outgoing$ = new Subject<Uint8Array>();
   private _outgoing_blob$ = this._outgoing$.map(arr => new Blob([arr]));
+  private _outgoing_connected_only$ = this._outgoing_blob$
+    .zip(this._status$.filter(status => status === ConnectionStatus.CONNECTED).take(1))
+    .map(([blob, status]) => blob);
+
 
   constructor() {
-    this._outgoing_blob$.subscribe(buf => this.socket.send(<Blob>buf));
+    this._outgoing_connected_only$.subscribe(buf => this.socket.send(<Blob>buf));
   }
 
   socketDisconnect() {

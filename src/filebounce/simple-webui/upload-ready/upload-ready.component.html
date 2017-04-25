@@ -1,0 +1,17 @@
+<div>
+
+  <div class="input-group">
+    <input type="text" class="form-control download-url" [value]="downloadUrl$ | async">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button" (click)="copyToClipboard()">
+        <span class="glyphicon glyphicon-copy"></span>
+        Copy
+      </button>
+    </span>
+  </div>
+  
+  <p class="text-muted text-center">
+    Your upload is ready! Send this URL to your recipient, and keep your browser open.
+  </p>
+
+</div>
