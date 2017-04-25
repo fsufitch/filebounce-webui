@@ -49,7 +49,7 @@ module.exports = {
       { test: /\.json$/, loader: 'json-loader'},
       { test: /\.s?css$/, loader: 'to-string-loader!css-loader!sass-loader' },
       { test: /\.html?$/, loader: 'html-loader' },
-      { test: /\.(ttf|eot|woff2?|png|jpe?g|svg)$/, loader: 'url-loader?limit=10000' },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
       { test: /\.(txt|proto)$/, loader: 'raw-loader'}
     ],
   },
