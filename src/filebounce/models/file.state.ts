@@ -1,16 +1,16 @@
 import { Record } from 'immutable';
 
-interface SelectFileStepData {
+interface FileSelectionStateData {
   file: File;
   confirmed: boolean;
 }
 
-export const DEFAULT_FILE_STATE: SelectFileStepData = {
+export const DEFAULT_FILE_STATE: FileSelectionStateData = {
   file: null,
   confirmed: false,
 };
 
-export class SelectFileStep extends Record(DEFAULT_FILE_STATE) implements SelectFileStepData {
+export class FileSelectionState extends Record(DEFAULT_FILE_STATE) implements FileSelectionStateData {
   file: File;
   confirmed: boolean;
 

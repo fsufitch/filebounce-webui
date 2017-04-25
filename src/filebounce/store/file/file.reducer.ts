@@ -1,11 +1,11 @@
 import { Action, ActionReducer } from '@ngrx/store';
 
-import { SelectFileStep } from 'filebounce/models/file.state';
+import { FileSelectionState } from 'filebounce/models/file.state';
 import {
   ClearSelectedFileAction, SetSelectedFileAction, ConfirmSelectedFileAction,
 } from './file.actions';
 
-function _fileStateReducer(state = new SelectFileStep(), action: Action): SelectFileStep {
+function _fileStateReducer(state = new FileSelectionState(), action: Action): FileSelectionState {
   switch (action.type) {
     case ClearSelectedFileAction.type: {
       state = state.clear();
@@ -24,4 +24,4 @@ function _fileStateReducer(state = new SelectFileStep(), action: Action): Select
   return state;
 }
 
-export const fileStateReducer: ActionReducer<SelectFileStep> = _fileStateReducer;
+export const fileStateReducer: ActionReducer<FileSelectionState> = _fileStateReducer;

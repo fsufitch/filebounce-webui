@@ -7,6 +7,7 @@ export class FileSelectService {
   constructor(private fileService: FileService) {}
 
   selectFile(f: File) {
+    this.fileService.clearFile();
     this.fileService.setFile(f);
     this.fileService.confirmFile();
   }

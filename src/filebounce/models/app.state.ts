@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { SelectFileStep } from './file.state';
+import { FileSelectionState } from './file.state';
 import { UploadOptions } from './upload-options.state';
 import { UploadProgress } from './upload-progress.state';
 
@@ -9,7 +9,7 @@ export enum UIStep {
 
 interface AppStateData {
   currentStep: UIStep;
-  file: SelectFileStep;
+  file: FileSelectionState;
   uploadOptions: UploadOptions;
   uploadProgress: UploadProgress;
 }
@@ -23,7 +23,7 @@ export const DEFAULT_APP_STATE: AppStateData = {
 
 export class AppState extends Record(DEFAULT_APP_STATE) implements AppStateData {
   currentStep: UIStep;
-  file: SelectFileStep;
+  file: FileSelectionState;
   uploadOptions: UploadOptions;
   uploadProgress: UploadProgress;
 
